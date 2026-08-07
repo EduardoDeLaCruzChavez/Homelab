@@ -1,0 +1,64 @@
+name: database
+
+services:
+
+  postgres:
+    image: postgres@sha256:3a82e1f56c8f0f5616a11103ac3d47e632c3938698946a7ad26da0df1334744a
+    container_name: Postgres
+    restart: always
+    ports:
+     - "5432:5432"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - glob-database:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER_FILE=/run/secrets/postgres_user
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+    secrets:
+      - postgres_user
+      - postgres_password
+    networks:
+      - homelab-private
+
+  myadmin:
+    image: dpage/pgadmin4@sha256:2f4ce946ddf8360680d7eff4eaba1d91859eb6b4003e6623bad5c63a322c2f4d
+    container_name: myadmin
+    restart: unless-stopped
+    volumes:
+      - pdadmin-data:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@valorant.com
+      - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/email_password
+      - PGADMIN_LISTEN_PORT=8080
+      - SCRIPT_NAME=/myadmin
+      - PROXY_X_FOR_COUNT=1
+    secrets:
+      - email_password
+    depends_on:
+      - postgres
+    networks:
+      - homelab-internal
+      - homelab-private
+  
+
+volumes:
+  pdadmin-data:
+  glob-database:
+
+secrets:
+  postgres_user:
+    file: ./.pswd/user
+  postgres_password:
+    file: ./.pswd/pswdb
+  email_password:
+    file: ./.pswd/pswdmail
+
+networks:
+  homelab-internal:
+    name: homelab-internal
+    driver: bridge
+    internal: true
+  homelab-private:
+    name: homelab-private
+    driver: bridge
+    internal: true
