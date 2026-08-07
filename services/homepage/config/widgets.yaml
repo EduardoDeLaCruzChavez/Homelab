@@ -1,0 +1,15 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/info-widgets/
+- search:
+    provider: duckduckgo
+    target: _blank
+    placeholder: Search...
+
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+    uptime: true
+    expanded: true
+    label: System

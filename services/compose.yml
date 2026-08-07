@@ -1,0 +1,51 @@
+name: home-service
+
+services:
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=localhost:8989,homepage.local:8989,localhost,homepage.local
+    restart: unless-stopped
+    volumes:
+      - ./homepage/config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - wakapi
+    networks:
+      - homelab-internal
+
+  wakapi:
+    image: ghcr.io/muety/wakapi:latest
+    container_name: wakapi
+    environment:
+      - WAKAPI_PUBLIC_URL=https://homepage.local:8989/wakapi
+      - /etc/localtime:/etc/localtime:ro
+      - WAKAPI_BASE_PATH=/wakapi/
+      - WAKAPI_DB_TYPE=postgres
+      - WAKAPI_DB_HOST=postgres
+      - WAKAPI_DB_PORT=5432
+      - WAKAPI_DB_NAME=wakapi
+      - WAKAPI_DB_USER=wakapi
+      - WAKAPI_DB_PASSWORD_FILE=/run/secrets/wakapi_password
+      #wakapi config
+      - WAKAPI_LEADERBOARD_ENABLED=false
+      - WAKAPI_PUBLIC_STATS=false
+    secrets:
+      - wakapi_password
+    restart: unless-stopped
+    networks:
+      - homelab-internal
+      - homelab-private
+
+
+secrets:
+  wakapi_password:
+    file: .pswd/pswdwaka
+
+networks:
+  homelab-internal:
+    external: true
+  homelab-private:
+    external: true

@@ -1,0 +1,20 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings/
+title: Homepage
+base: https://localhost:8989/
+theme: dark
+color: neutral
+
+headerStyle: clean
+
+layout:
+  Applications:
+    style: row
+    columns: 1
+  Admin:
+    style: row
+    columns: 1
+  Bookmarks:
+    style: grid
+    columns: 2
