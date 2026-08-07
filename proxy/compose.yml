@@ -1,0 +1,26 @@
+name: home-proxy
+
+services:
+
+  main-service:
+    image: nginx@sha256:97d490c12ba55b4946b01546d1c3ed324e8d41ab1c9fcb2a616aa470620e5b46
+    container_name: homelab
+    ports:
+      - "8989:8989"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    restart: always
+    networks:
+      - homelab-public
+      - homelab-internal
+
+networks:
+  homelab-public:
+    name: homelab-public
+    driver: bridge
+  homelab-internal:
+    external: true
+    name: homelab-internal
+
