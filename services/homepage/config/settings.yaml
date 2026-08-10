@@ -2,7 +2,6 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/settings/
 title: Homepage
-base: https://localhost:8989/
 theme: dark
 color: neutral
 
