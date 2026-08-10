@@ -7,13 +7,19 @@
         icon: vikunja.png
         href: /vikunja/
         target: _self
+    - Vaultwarden:
+        icon: vaultwarden.png
+        href: /vaultwarden/
+        target: _self
+
+- Monitoring:
+    - Beszel:
+        icon: beszel.png
+        href: /beszel/
+        target: _self
 
 - Admin:
     - pgAdmin:
         icon: pgadmin.png
         href: /myadmin/
         target: _blank
-    - Vaultwarden:
-        icon: vaultwarden.png
-        href: /vaultwarden/
-        target: _self
