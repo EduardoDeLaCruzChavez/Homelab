@@ -68,6 +68,21 @@ services:
       - homelab-internal
       - homelab-private
 
+  vaultwarden:
+    build: ./vaultwarden
+    container_name: vaultwarden
+    environment:
+      - DOMAIN=${BASE_URL}/vaultwarden
+      - SIGNUPS_ALLOWED=true
+    volumes:
+      - ./vault_data:/data
+    secrets:
+      - vaultwarden_db_password
+    restart: unless-stopped
+    networks:
+      - homelab-internal
+      - homelab-private
+
 secrets:
   wakapi_password:
     file: .pswd/pswdwaka
@@ -75,6 +90,8 @@ secrets:
     file: .pswd/pswdvikunja
   vikunja_secret:
     file: .pswd/secretvin
+  vaultwarden_db_password:
+    file: .pswd/pswdvault
 
 networks:
   homelab-internal:
