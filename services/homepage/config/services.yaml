@@ -15,4 +15,5 @@
         target: _blank
     - Vaultwarden:
         icon: vaultwarden.png
-        url: https://homepage.local:8989/
+        href: /vaultwarden/
+        target: _self
