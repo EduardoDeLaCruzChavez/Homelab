@@ -3,14 +3,16 @@
         icon: wakapi.png
         href: /wakapi/
         target: _self
+    - Vikunja:
+        icon: vikunja.png
+        href: /vikunja/
+        target: _self
+
 - Admin:
     - pgAdmin:
         icon: pgadmin.png
         href: /myadmin/
         target: _blank
-    - Immich:
-        icon: immich.png
-        url: https://homepage.local:8989/
     - Vaultwarden:
         icon: vaultwarden.png
         url: https://homepage.local:8989/
