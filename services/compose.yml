@@ -6,7 +6,8 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      - HOMEPAGE_ALLOWED_HOSTS=localhost:8989,homepage.local:8989,localhost,homepage.local
+      - HOMEPAGE_BASE_URL=/home
+      - HOMEPAGE_ALLOWED_HOSTS=${ALLOWED_HOST}
     restart: unless-stopped
     volumes:
       - ./homepage/config:/app/config
@@ -20,7 +21,6 @@ services:
     image: ghcr.io/muety/wakapi:latest
     container_name: wakapi
     environment:
-      - WAKAPI_PUBLIC_URL=https://homepage.local:8989/wakapi
       - /etc/localtime:/etc/localtime:ro
       - WAKAPI_BASE_PATH=/wakapi/
       - WAKAPI_DB_TYPE=postgres
@@ -39,10 +39,42 @@ services:
       - homelab-internal
       - homelab-private
 
+  vikunja:
+    build:
+      context: ./vikunja-repo
+      dockerfile: Dockerfile
+      args:
+        - RELEASE_VERSION=v2.5.0
+    container_name: vikunja
+    environment:
+      - VIKUNJA_SERVICE_ROOTURL=${BASE_URL}/vikunja/
+      - VIKUNJA_SERVICE_PUBLICURL=${BASE_URL}/vikunja/
+      - VIKUNJA_CORS_ENABLE=true
+      - VIKUNJA_CORS_ORIGINS=${BASE_URL}/
+      - VIKUNJA_DATABASE_HOST=postgres
+      - VIKUNJA_DATABASE_TYPE=postgres
+      - VIKUNJA_DATABASE_DATABASE=vikunja
+      - VIKUNJA_DATABASE_USER=vikunja
+      - VIKUNJA_DATABASE_PASSWORD_FILE=/run/secrets/vikunja_password
+      - VIKUNJA_SERVICE_SECRET_FILE=/run/secrets/vikunja_secret
+    volumes:
+      - ./vikunja:/app/vikunja/files
+      - /etc/localtime:/etc/localtime:ro
+    secrets:
+      - vikunja_password
+      - vikunja_secret
+    restart: unless-stopped
+    networks:
+      - homelab-internal
+      - homelab-private
 
 secrets:
   wakapi_password:
     file: .pswd/pswdwaka
+  vikunja_password:
+    file: .pswd/pswdvikunja
+  vikunja_secret:
+    file: .pswd/secretvin
 
 networks:
   homelab-internal:

@@ -39,7 +39,6 @@ services:
     networks:
       - homelab-internal
       - homelab-private
-  
 
 volumes:
   pdadmin-data:
