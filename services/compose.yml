@@ -6,7 +6,6 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     environment:
-      - HOMEPAGE_BASE_URL=/home
       - HOMEPAGE_ALLOWED_HOSTS=${ALLOWED_HOST}
     restart: unless-stopped
     volumes:
