@@ -15,6 +15,7 @@ services:
     networks:
       - homelab-public
       - homelab-internal
+      - homelab-monitoring
 
 networks:
   homelab-public:
@@ -23,4 +24,7 @@ networks:
   homelab-internal:
     external: true
     name: homelab-internal
+  homelab-monitoring:
+    external: true
+    name: homelab-monitoring
 

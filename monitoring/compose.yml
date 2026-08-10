@@ -1,0 +1,48 @@
+name: monitoring
+
+services:
+
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: monitoring
+    restart: unless-stopped
+    environment:
+      - APP_URL=${BASE_URL}/beszel
+    volumes:
+      - ./beszel_data:/beszel_data
+    networks:
+      - homelab-monitoring
+
+  beszel-agent:
+    image: henrygd/beszel-agent:latest
+    container_name: beszel-agent
+    environment:
+      - LISTEN=45876
+      - HUB_URL=http://beszel:8090
+      - TOKEN_FILE=/run/secrets/beszel_token
+      - KEY_FILE=/run/secrets/beszel_key
+    volumes:
+      - beszel_agent_data:/var/lib/beszel-agent
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    secrets:
+      - beszel_key
+      - beszel_token
+    restart: unless-stopped
+    networks:
+      - homelab-monitoring
+
+volumes:
+  beszel_agent_data:
+
+secrets:
+  beszel_key:
+    file: .pswd/bezkey
+  beszel_token:
+    file: .pswd/beztok
+
+networks:
+  homelab-monitoring:
+    name: homelab-monitoring
+    driver: bridge
+    internal: true
+
