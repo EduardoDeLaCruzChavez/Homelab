@@ -1,6 +1,7 @@
 .env
 **/vikunja-repo
 **/vault_data
+**/beszel_data
 **/certs
 **/.pswd/*
 **/logs
