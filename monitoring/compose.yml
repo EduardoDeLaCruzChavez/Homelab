@@ -6,6 +6,7 @@ services:
     image: henrygd/beszel:latest
     container_name: monitoring
     restart: unless-stopped
+    user: "${PUID}:${PGID}"
     environment:
       - APP_URL=${BASE_URL}/beszel
     volumes:

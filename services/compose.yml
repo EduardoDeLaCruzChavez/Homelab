@@ -7,6 +7,8 @@ services:
     container_name: homepage
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=${ALLOWED_HOST}
+      - PUID=${PUID}
+      - PGID=${PGID}
     restart: unless-stopped
     volumes:
       - ./homepage/config:/app/config
