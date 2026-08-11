@@ -12,6 +12,10 @@ services:
       - ./beszel_data:/beszel_data
     networks:
       - homelab-monitoring
+    healthcheck:
+      test: ['CMD', '/beszel', 'health', '--url', 'http://localhost:8090']
+      start_period: 5s
+      interval: 120s
 
   beszel-agent:
     image: henrygd/beszel-agent:latest
@@ -30,6 +34,8 @@ services:
     restart: unless-stopped
     networks:
       - homelab-monitoring
+    healthcheck:
+      test: ['CMD', '/agent', 'health']
 
 volumes:
   beszel_agent_data:

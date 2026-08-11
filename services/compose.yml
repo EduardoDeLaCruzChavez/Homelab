@@ -66,6 +66,11 @@ services:
     networks:
       - homelab-internal
       - homelab-private
+    healthcheck:
+      test: ["CMD", "/app/vikunja/vikunja", "healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   vaultwarden:
     build: ./vaultwarden

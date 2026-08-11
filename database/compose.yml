@@ -19,6 +19,12 @@ services:
       - postgres_password
     networks:
       - homelab-private
+    healthcheck:
+     test: ["CMD-SHELL", "pg_isready -q"]
+     interval: 30s
+     timeout: 5s
+     retries: 3
+     start_period: 15s
 
   myadmin:
     image: dpage/pgadmin4@sha256:2f4ce946ddf8360680d7eff4eaba1d91859eb6b4003e6623bad5c63a322c2f4d
@@ -39,6 +45,12 @@ services:
     networks:
       - homelab-internal
       - homelab-private
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/myadmin/misc/ping"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
 volumes:
   pdadmin-data:
