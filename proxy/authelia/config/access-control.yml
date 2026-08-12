@@ -1,0 +1,41 @@
+
+access_control:
+  default_policy: deny
+  networks:
+    - name: local_network
+      networks:
+        - 192.168.8.0/24
+        - 172.16.0.0/12
+
+  rules:
+    - domain: 'homelab.cz'
+      resources:
+        # Homepage
+        - '^/$'
+      policy: bypass
+
+    - domain: 'homelab.cz'
+      resources:
+        # Applications
+        - '^/wakapi($|/.*)'
+        - '^/vikunja($|/.*)'
+        - '^/vaultwarden($|/.*)'
+        # Admin
+        - '^/myadmin($|/.*)'
+        # Monitoring
+        - '^/beszel($|/.*)'
+      networks:
+        - local_network
+      policy: bypass
+
+    - domain: 'homelab.cz'
+      resources:
+        #Applications
+        - '^/wakapi($|/.*)'
+        - '^/vikunja($|/.*)'
+        - '^/vaultwarden($|/.*)'
+        # Admin
+        - '^/myadmin($|/.*)'
+        # Monitoring
+        - '^/beszel($|/.*)'
+      policy: two_factor

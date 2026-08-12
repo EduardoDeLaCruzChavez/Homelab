@@ -1,0 +1,16 @@
+
+totp:
+  issuer: Homelab authelia
+  algorithm: sha1
+  digits: 6
+  period: 30
+  skew: 1
+  secret_size: 32
+
+webauthn:
+  disable: false
+  display_name: Local Homelab Security
+  attestation_conveyance_preference: indirect
+  selection_criteria:
+    user_verification: preferred
+  timeout: 60s
