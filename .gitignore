@@ -2,6 +2,9 @@
 **/vikunja-repo
 **/vault_data
 **/beszel_data
+**/authelia/secrets
+**/authelia/config/users_database.yml
+**/authelia/config/notification.txt
 **/certs
 **/.pswd/*
 **/logs
