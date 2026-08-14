@@ -6,9 +6,13 @@ services:
     image: nginx@sha256:97d490c12ba55b4946b01546d1c3ed324e8d41ab1c9fcb2a616aa470620e5b46
     container_name: homelab
     ports:
-      - "8989:8989"
+      - "${PORT}:${PORT}"
+    environment:
+      - DOMAIN=${DOMAIN}
+      - PORT=${PORT}
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/snippets:/etc/nginx/snippets:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/certs:/etc/nginx/certs:ro
     restart: always
@@ -16,6 +20,32 @@ services:
       - homelab-public
       - homelab-internal
       - homelab-monitoring
+    depends_on:
+      - authelia
+
+  authelia:
+    container_name: authelia
+    image: authelia/authelia:latest
+    user: "${PUID}:${PGID}"
+    command:
+      - authelia
+      - --config=/config/configuration.yml
+      - --config=/config/authentication.yml
+      - --config=/config/access-control.yml
+      - --config=/config/two_factor.yml
+    environment:
+      - AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE=/secrets/JWT_SECRET
+      - AUTHELIA_SESSION_SECRET_FILE=/secrets/SESSION_SECRET
+      - AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE=/secrets/STORAGE_PASSWORD
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/secrets/STORAGE_ENCRYPTION_KEY
+    volumes:
+      - ./authelia/config:/config
+      - ./authelia/secrets:/secrets
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    networks:
+      - homelab-internal
+      - homelab-private
 
 networks:
   homelab-public:
@@ -27,4 +57,7 @@ networks:
   homelab-monitoring:
     external: true
     name: homelab-monitoring
+  homelab-private:
+    external: true
+    name: homelab-private
 
