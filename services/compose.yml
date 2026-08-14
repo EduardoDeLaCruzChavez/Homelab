@@ -13,6 +13,7 @@ services:
     volumes:
       - ./homepage/config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - wakapi
     networks:
@@ -33,6 +34,8 @@ services:
       #wakapi config
       - WAKAPI_LEADERBOARD_ENABLED=false
       - WAKAPI_PUBLIC_STATS=false
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     secrets:
       - wakapi_password
     restart: unless-stopped
@@ -82,6 +85,7 @@ services:
       - SIGNUPS_ALLOWED=true
     volumes:
       - ./vault_data:/data
+      - /etc/localtime:/etc/localtime:ro
     secrets:
       - vaultwarden_db_password
     restart: unless-stopped
