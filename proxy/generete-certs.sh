@@ -8,7 +8,8 @@ CRT_FILE="${CERT_DIR}/homelab.crt"
 DAYS_VALID=365
 
 DNS_LIST=(
-  "homepage.local"
+  "homelab.cz"
+  "*.homelab.cz"
   "localhost"
 )
 
