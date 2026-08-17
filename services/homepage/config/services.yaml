@@ -1,7 +1,7 @@
 - Applications:
     - Wakapi:
         icon: wakapi.png
-        href: /wakapi/
+        href: https://wakapi.homelab.cz:8989/
         target: _blank
     - Vikunja:
         icon: vikunja.png

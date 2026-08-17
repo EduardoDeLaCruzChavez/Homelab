@@ -24,7 +24,7 @@ services:
     container_name: wakapi
     environment:
       - /etc/localtime:/etc/localtime:ro
-      - WAKAPI_BASE_PATH=/wakapi/
+      - WAKAPI_BASE_PATH=/
       - WAKAPI_DB_TYPE=postgres
       - WAKAPI_DB_HOST=postgres
       - WAKAPI_DB_PORT=5432
