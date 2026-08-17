@@ -8,9 +8,10 @@ services:
     restart: unless-stopped
     user: "${PUID}:${PGID}"
     environment:
-      - APP_URL=${BASE_URL}/beszel
+      - APP_URL=https://beszel.${DOMAIN_PORT}/
     volumes:
       - ./beszel_data:/beszel_data
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - homelab-monitoring
     healthcheck:

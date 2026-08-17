@@ -33,6 +33,13 @@ access_control:
         - local_network
       policy: bypass
 
+    - domain: 'beszel.homelab.cz'
+      resources:
+        - '^/.*$'
+      networks:
+        - local_network
+      policy: bypass
+
     - domain: 'homelab.cz'
       resources:
         #Applications

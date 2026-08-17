@@ -2,21 +2,21 @@
     - Wakapi:
         icon: wakapi.png
         href: /wakapi/
-        target: _self
+        target: _blank
     - Vikunja:
         icon: vikunja.png
         href: /vikunja/
-        target: _self
+        target: _blank
     - Vaultwarden:
         icon: vaultwarden.png
         href: /vaultwarden/
-        target: _self
+        target: _blank
 
 - Monitoring:
     - Beszel:
         icon: beszel.png
-        href: /beszel/
-        target: _self
+        href: https://beszel.homelab.cz:8989/
+        target: _blank
 
 - Admin:
     - pgAdmin:
