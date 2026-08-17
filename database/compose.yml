@@ -45,7 +45,7 @@ services:
       - homelab-internal
       - homelab-private
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/myadmin/misc/ping"]
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/misc/ping"]
       interval: 60s
       timeout: 5s
       retries: 3
