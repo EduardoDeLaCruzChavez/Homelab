@@ -81,7 +81,7 @@ services:
     build: ./vaultwarden
     container_name: vaultwarden
     environment:
-      - DOMAIN=${BASE_URL}/vaultwarden
+      - DOMAIN=https://vaultwarden.${DOMAIN_PORT}/
       - SIGNUPS_ALLOWED=true
     volumes:
       - ./vault_data:/data

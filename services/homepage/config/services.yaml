@@ -9,7 +9,7 @@
         target: _blank
     - Vaultwarden:
         icon: vaultwarden.png
-        href: /vaultwarden/
+        href: https://vaultwarden.homelab.cz:8989/
         target: _blank
 
 - Monitoring:
