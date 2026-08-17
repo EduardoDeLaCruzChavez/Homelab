@@ -20,10 +20,15 @@ access_control:
         - '^/wakapi($|/.*)'
         - '^/vikunja($|/.*)'
         - '^/vaultwarden($|/.*)'
-        # Admin
-        - '^/myadmin($|/.*)'
         # Monitoring
         - '^/beszel($|/.*)'
+      networks:
+        - local_network
+      policy: bypass
+
+    - domain: 'myadmin.homelab.cz'
+      resources:
+        - '^/.*$'
       networks:
         - local_network
       policy: bypass
@@ -34,8 +39,6 @@ access_control:
         - '^/wakapi($|/.*)'
         - '^/vikunja($|/.*)'
         - '^/vaultwarden($|/.*)'
-        # Admin
-        - '^/myadmin($|/.*)'
         # Monitoring
         - '^/beszel($|/.*)'
       policy: two_factor
