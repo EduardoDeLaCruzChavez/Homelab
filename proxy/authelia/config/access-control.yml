@@ -14,15 +14,14 @@ access_control:
         - '^/$'
       policy: bypass
 
-    - domain: 'homelab.cz'
+    - domain: 'wakapi.homelab.cz'
       resources:
-        # Applications
-        - '^/vikunja($|/.*)'
+        - '^/.*$'
       networks:
         - local_network
       policy: bypass
 
-    - domain: 'wakapi.homelab.cz'
+    - domain: 'vikunja.homelab.cz'
       resources:
         - '^/.*$'
       networks:
@@ -50,8 +49,3 @@ access_control:
         - local_network
       policy: bypass
 
-    - domain: 'homelab.cz'
-      resources:
-        #Applications
-        - '^/vikunja($|/.*)'
-      policy: two_factor

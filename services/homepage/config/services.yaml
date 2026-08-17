@@ -5,7 +5,7 @@
         target: _blank
     - Vikunja:
         icon: vikunja.png
-        href: /vikunja/
+        href: https://vikunja.homelab.cz:8989/
         target: _blank
     - Vaultwarden:
         icon: vaultwarden.png
