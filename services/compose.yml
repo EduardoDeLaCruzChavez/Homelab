@@ -88,6 +88,17 @@ services:
       - homelab-internal
       - homelab-private
 
+  actual-budget:
+    image: actualbudget/actual-server@sha256:bce31cf528fc8d0522628434955191b1880f140d30fdc2c514c9f4267ae1b8b6
+    container_name: actual-budget
+    volumes:
+      - ./actual_data:/data
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - homelab-internal
+      - homelab-private
+
 secrets:
   wakapi_password:
     file: .pswd/pswdwaka

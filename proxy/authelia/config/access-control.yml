@@ -35,6 +35,14 @@ access_control:
         - local_network
       policy: bypass
 
+    - domain: 'actualbudget.homelab.cz'
+      resources:
+        - '^/.*$'
+      networks:
+        - local_network
+      policy: bypass
+
+
     - domain: 'myadmin.homelab.cz'
       resources:
         - '^/.*$'

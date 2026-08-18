@@ -11,6 +11,10 @@
         icon: vaultwarden.png
         href: https://vaultwarden.homelab.cz:8989/
         target: _blank
+    - Actual budget:
+        icon: actual-budget.png
+        href: https://actualbudget.homelab.cz:8989/
+        target: _blank
 
 - Monitoring:
     - Beszel:
