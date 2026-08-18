@@ -24,7 +24,7 @@ services:
     container_name: wakapi
     environment:
       - /etc/localtime:/etc/localtime:ro
-      - WAKAPI_BASE_PATH=/wakapi/
+      - WAKAPI_BASE_PATH=/
       - WAKAPI_DB_TYPE=postgres
       - WAKAPI_DB_HOST=postgres
       - WAKAPI_DB_PORT=5432
@@ -44,17 +44,12 @@ services:
       - homelab-private
 
   vikunja:
-    build:
-      context: ./vikunja-repo
-      dockerfile: Dockerfile
-      args:
-        - RELEASE_VERSION=v2.5.0
+    image: vikunja/vikunja@sha256:22df4c1bc8843c28d383bc5f52b59e7b601bf5f6560b36b29c0a500833c77fa3
     container_name: vikunja
     environment:
-      - VIKUNJA_SERVICE_ROOTURL=${BASE_URL}/vikunja/
-      - VIKUNJA_SERVICE_PUBLICURL=${BASE_URL}/vikunja/
+      - VIKUNJA_SERVICE_PUBLICURL=https://vikunja.${DOMAIN_PORT}/
       - VIKUNJA_CORS_ENABLE=true
-      - VIKUNJA_CORS_ORIGINS=${BASE_URL}/
+      - VIKUNJA_CORS_ORIGINS=https://vikunja.${DOMAIN_PORT}
       - VIKUNJA_DATABASE_HOST=postgres
       - VIKUNJA_DATABASE_TYPE=postgres
       - VIKUNJA_DATABASE_DATABASE=vikunja
@@ -81,7 +76,7 @@ services:
     build: ./vaultwarden
     container_name: vaultwarden
     environment:
-      - DOMAIN=${BASE_URL}/vaultwarden
+      - DOMAIN=https://vaultwarden.${DOMAIN_PORT}/
       - SIGNUPS_ALLOWED=true
     volumes:
       - ./vault_data:/data

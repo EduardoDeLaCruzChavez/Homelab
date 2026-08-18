@@ -14,28 +14,38 @@ access_control:
         - '^/$'
       policy: bypass
 
-    - domain: 'homelab.cz'
+    - domain: 'wakapi.homelab.cz'
       resources:
-        # Applications
-        - '^/wakapi($|/.*)'
-        - '^/vikunja($|/.*)'
-        - '^/vaultwarden($|/.*)'
-        # Admin
-        - '^/myadmin($|/.*)'
-        # Monitoring
-        - '^/beszel($|/.*)'
+        - '^/.*$'
       networks:
         - local_network
       policy: bypass
 
-    - domain: 'homelab.cz'
+    - domain: 'vikunja.homelab.cz'
       resources:
-        #Applications
-        - '^/wakapi($|/.*)'
-        - '^/vikunja($|/.*)'
-        - '^/vaultwarden($|/.*)'
-        # Admin
-        - '^/myadmin($|/.*)'
-        # Monitoring
-        - '^/beszel($|/.*)'
-      policy: two_factor
+        - '^/.*$'
+      networks:
+        - local_network
+      policy: bypass
+
+    - domain: 'vaultwarden.homelab.cz'
+      resources:
+        - '^/.*$'
+      networks:
+        - local_network
+      policy: bypass
+
+    - domain: 'myadmin.homelab.cz'
+      resources:
+        - '^/.*$'
+      networks:
+        - local_network
+      policy: bypass
+
+    - domain: 'beszel.homelab.cz'
+      resources:
+        - '^/.*$'
+      networks:
+        - local_network
+      policy: bypass
+

@@ -1,25 +1,25 @@
 - Applications:
     - Wakapi:
         icon: wakapi.png
-        href: /wakapi/
-        target: _self
+        href: https://wakapi.homelab.cz:8989/
+        target: _blank
     - Vikunja:
         icon: vikunja.png
-        href: /vikunja/
-        target: _self
+        href: https://vikunja.homelab.cz:8989/
+        target: _blank
     - Vaultwarden:
         icon: vaultwarden.png
-        href: /vaultwarden/
-        target: _self
+        href: https://vaultwarden.homelab.cz:8989/
+        target: _blank
 
 - Monitoring:
     - Beszel:
         icon: beszel.png
-        href: /beszel/
-        target: _self
+        href: https://beszel.homelab.cz:8989/
+        target: _blank
 
 - Admin:
     - pgAdmin:
         icon: pgadmin.png
-        href: /myadmin/
+        href: https://myadmin.homelab.cz:8989/
         target: _blank
