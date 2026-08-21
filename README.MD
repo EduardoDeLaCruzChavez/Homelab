@@ -2,7 +2,7 @@
 
 A collection of Docker containers and configurations for my personal homelab environment.
 
-The repository primarily includes shared infrastructure and self-hosted services such as:
+The repository primarily includes shared infrastructure and self-hosted services focused on productivity, developer tracking, personal finance, system telemetry, and centralized authentication.
 
 ## Architecture
 
@@ -10,26 +10,31 @@ The repository primarily includes shared infrastructure and self-hosted services
 Client
   │
   ▼
-Nginx
-Reverse Proxy
+Nginx (Reverse Proxy)
+  │
+  ├──────► Authelia (SSO / Access Control)
   │
   ├── Applications
-  │   ├── Homepage
-  │   ├── Wakapi
-  │   ├── Vikunja
-  │   └── Vaultwarden
+  │    ├── Homepage
+  │    ├── Wakapi
+  │    ├── Vikunja
+  │    ├── Vaultwarden
+  │    └── Actual Budget
   │
   ├── Monitoring
-  │   └── Beszel
+  │    └── Beszel
   │
   └── Administration
-      └── pgAdmin
-          │
-          ▼
-      PostgreSQL
+       └── pgAdmin
+           │
+           ▼
+        PostgreSQL
 ```
 
 ## Services
+
+### Security & Authentication
+* **Authelia** — Centralized single sign-on (SSO) and multi-factor authentication proxy.
 
 ### Applications
 
@@ -37,6 +42,7 @@ Reverse Proxy
 * **Wakapi** — Coding activity tracking
 * **Vikunja** — Task and project management
 * **Vaultwarden** — Self-hosted password manager
+* **Actual Budget** — Local-first personal finance and budgeting system
 
 ### Monitoring
 
