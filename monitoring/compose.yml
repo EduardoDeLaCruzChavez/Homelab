@@ -39,6 +39,76 @@ services:
     healthcheck:
       test: ['CMD', '/agent', 'health']
 
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy@sha256:1f5038b54f06c3e18422902cf00ba21803d1c97805aae032e5e6673d532d3459
+    container_name: socket-proxy
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+    environment:
+      - CONTAINERS=1
+      - IMAGES=1
+      - INFO=1
+      - POST=0
+      - DELETE=0
+      - PUT=0
+      - EXEC=0
+      - VOLUMES=0
+      - NETWORKS=0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+    networks:
+      - homelab-socket
+
+  trivy:
+    image: aquasec/trivy@sha256:62b1e65e8869bc4b4c6aa4fa2b21595256c7c2f6018a9d9ad61caf87187c1969
+    container_name: trivy
+    entrypoint: ["trivy", "server", "--listen", "0.0.0.0:4954"]
+    user: "${PUID}:${PGID}"
+    tmpfs:
+      - /tmp
+    environment:
+      - TRIVY_CACHE_DIR=/tmp/cache
+    volumes:
+      - ./trivy-cache:/tmp/cache
+    restart: unless-stopped
+    networks:
+      - homelab-monitoring
+      - homelab-public
+
+  drydock:
+    image: codeswhat/drydock@sha256:43d4807aba1e39944275ed027d08f6ce670a07efa8916ba06a1d257a2bcbf786
+    container_name: drydock
+    user: "${PUID}:${PGID}"
+    depends_on:
+      - socket-proxy
+    environment:
+      - DD_WATCHER_LOCAL_HOST=socket-proxy
+      - DD_WATCHER_LOCAL_PORT=2375
+      - DD_PUBLIC_URL=https://drydock.${DOMAIN_PORT}
+      - DD_DISABLE_BOOT_CHECK=true
+      - DD_WATCHER_LOCAL_CRON=0 */12 * * *
+      - DD_SECURITY_SCAN_CRON=0 3 * * *
+      - DD_SECURITY_SCANNER=trivy
+      - DD_SECURITY_TRIVY_SERVER=http://trivy:4954
+      - DD_SECURITY_BLOCK_SEVERITY=CRITICAL,HIGH
+      - DD_SERVER_TRUSTPROXY=1
+      - PORT=3000
+      - DD_AUTH_BASIC_ADMIN_USER=admin
+      - DD_AUTH_BASIC_ADMIN_HASH__FILE=/run/secrets/admin_hash
+    volumes:
+      - ./drydock-data:/store
+      - /etc/localtime:/etc/localtime:ro
+    secrets:
+      - admin_hash
+    restart: unless-stopped
+    networks:
+      - homelab-socket
+      - homelab-monitoring
+      - homelab-public
+
 volumes:
   beszel_agent_data:
 
@@ -47,10 +117,19 @@ secrets:
     file: .pswd/bezkey
   beszel_token:
     file: .pswd/beztok
+  admin_hash:
+    file: .pswd/adminH
 
 networks:
   homelab-monitoring:
     name: homelab-monitoring
     driver: bridge
     internal: true
+  homelab-socket:
+    name: homelab-socket
+    driver: bridge
+    internal: true
+  homelab-public:
+    name: homelab-public
+    external: true
 

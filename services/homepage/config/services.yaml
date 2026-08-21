@@ -22,6 +22,10 @@
         href: https://beszel.homelab.cz:8989/
         target: _blank
 
+    - Drydock:
+        icon: mdi-anchor
+        href: https://drydock.homelab.cz:8989/
+        target: _blank
 - Admin:
     - pgAdmin:
         icon: pgadmin.png

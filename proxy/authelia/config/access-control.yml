@@ -42,8 +42,14 @@ access_control:
         - local_network
       policy: bypass
 
-
     - domain: 'myadmin.homelab.cz'
+      resources:
+        - '^/.*$'
+      networks:
+        - local_network
+      policy: bypass
+
+    - domain: 'drydock.homelab.cz'
       resources:
         - '^/.*$'
       networks:

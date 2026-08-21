@@ -6,6 +6,8 @@
 **/authelia/config/users_database.yml
 **/authelia/config/notification.txt
 **/actual_data
+**/trivy-cache
+**/drydock-data
 **/certs
 **/.pswd/*
 **/logs
