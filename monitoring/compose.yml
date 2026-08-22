@@ -3,7 +3,7 @@ name: monitoring
 services:
 
   beszel:
-    image: henrygd/beszel:latest
+    image: henrygd/beszel@sha256:4c51486968efa0b0a702c1b0967966a2e06fb250b7418f3072d2488faea27c51
     container_name: monitoring
     restart: unless-stopped
     user: "${PUID}:${PGID}"
@@ -20,7 +20,7 @@ services:
       interval: 120s
 
   beszel-agent:
-    image: henrygd/beszel-agent:latest
+    image: henrygd/beszel-agent@sha256:3b1939746690e423072b4a99bf4c4af6dd9562a68978a33738a3c4a4cc000c39
     container_name: beszel-agent
     environment:
       - LISTEN=45876
