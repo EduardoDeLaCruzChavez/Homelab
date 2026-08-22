@@ -3,7 +3,7 @@ name: home-service
 services:
 
   homepage:
-    image: ghcr.io/gethomepage/homepage:latest
+    image: ghcr.io/gethomepage/homepage@sha256:da9dca9ec258c628146bed1445da0853f2b88f0b10bafd97c091de807c363d60
     container_name: homepage
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=${ALLOWED_HOST}
