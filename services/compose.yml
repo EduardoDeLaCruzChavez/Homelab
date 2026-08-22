@@ -20,7 +20,7 @@ services:
       - homelab-internal
 
   wakapi:
-    image: ghcr.io/muety/wakapi:latest
+    image: ghcr.io/muety/wakapi@sha256:00662767731a6797d4be02cbc6c3f32b7ff8d0c683ee10ec5612856d4efbb3bf
     container_name: wakapi
     environment:
       - /etc/localtime:/etc/localtime:ro
