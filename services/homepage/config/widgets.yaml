@@ -7,9 +7,9 @@
     placeholder: Search...
 
 - resources:
-    cpu: true
-    memory: true
-    disk: /
+    cpu: false
+    memory: false
+    disk: false
     uptime: true
     expanded: true
-    label: System
+    label: Homelab
