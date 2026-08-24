@@ -1,6 +1,6 @@
 
 server:
-  address: 'tcp://0.0.0.0:9091/authelia'
+  address: 'tcp://0.0.0.0:9091'
   buffers:
     read: 4096
     write: 4096
@@ -16,7 +16,7 @@ session:
   inactivity: '15m'
   cookies:
     - domain: 'homelab.cz'
-      authelia_url: 'https://homelab.cz:8989/authelia'
+      authelia_url: 'https://auth.homelab.cz:8989/'
       default_redirection_url: 'https://homelab.cz:8989/'
 
 storage:
