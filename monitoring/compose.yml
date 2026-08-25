@@ -8,8 +8,11 @@ services:
     restart: unless-stopped
     user: "${PUID}:${PGID}"
     environment:
+      - DISABLE_PASSWORD_AUTH=true # <DISABLE_FIRST_SETUP>
+      - USER_CREATION=true
       - APP_URL=https://beszel.${DOMAIN_PORT}/
     volumes:
+      - ${CERT_CRT}:/etc/ssl/certs/custom-ca.crt:ro
       - ./beszel_data:/beszel_data
       - /etc/localtime:/etc/localtime:ro
     networks:

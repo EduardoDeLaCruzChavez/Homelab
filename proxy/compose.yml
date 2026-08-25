@@ -24,6 +24,8 @@ services:
         aliases:
           - auth.homelab.cz
       homelab-monitoring:
+        aliases:
+          - auth.homelab.cz
     depends_on:
       - authelia
 
