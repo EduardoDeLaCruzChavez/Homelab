@@ -90,9 +90,21 @@ services:
   actual-budget:
     image: actualbudget/actual-server@sha256:055bd958cdf3224aa0816dedb9ded75704dfa1f26f9ce663d95b0fc8d249931f
     container_name: actual-budget
+    environment:
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - ACTUAL_OPENID_AUTH_METHOD=openid
+      - ACTUAL_OPENID_ENABLED=true
+      - ACTUAL_OPENID_DISCOVERY_URL=https://auth.${DOMAIN_PORT}/.well-known/openid-configuration
+      - ACTUAL_OPENID_SERVER_HOSTNAME=https://actualbudget.${DOMAIN_PORT}
+      - ACTUAL_OPENID_CLIENT_ID=actual-budget
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
     volumes:
       - ./actual_data:/data
       - /etc/localtime:/etc/localtime:ro
+    secrets:
+      - actual_secret
+    entrypoint: >
+      /bin/sh -c "export ACTUAL_OPENID_CLIENT_SECRET=$$(cat /run/secrets/actual_secret) && exec node app.js"
     restart: unless-stopped
     networks:
       - homelab-internal
@@ -112,6 +124,8 @@ secrets:
     file: .pswd/secretvin
   vaultwarden_db_password:
     file: .pswd/pswdvault
+  actual_secret:
+    file: .pswd/actualSecret
 
 networks:
   homelab-internal:

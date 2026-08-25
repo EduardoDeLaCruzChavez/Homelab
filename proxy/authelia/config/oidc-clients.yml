@@ -1,0 +1,37 @@
+identity_providers:
+  oidc:
+    jwks:
+      - key: {{ secret "/secrets/oidc/jwks.key" | mindent 10 "|" | msquote }}
+        algorithm: 'RS256'
+        use: 'sig'
+    cors:
+      endpoints:
+        - authorization
+        - token
+        - revocation
+        - userinfo
+      allowed_origins_from_client_redirect_uris: true
+
+    clients:
+      - client_id: actual-budget
+        client_name: Actual Budget
+        client_secret: '{{ secret "/secrets/actual_secret" }}'
+        authorization_policy: one_factor
+        public: false
+        require_pkce: false
+        pkce_challenge_method: ''
+        redirect_uris:
+          - https://actualbudget.homelab.cz:8989/openid/callback
+        scopes:
+          - openid
+          - profile
+          - groups
+          - email
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic
+

@@ -19,9 +19,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
     restart: always
     networks:
-      - homelab-public
-      - homelab-internal
-      - homelab-monitoring
+      homelab-public:
+      homelab-internal:
+        aliases:
+          - auth.homelab.cz
+      homelab-monitoring:
     depends_on:
       - authelia
 
@@ -35,11 +37,13 @@ services:
       - --config=/config/authentication.yml
       - --config=/config/access-control.yml
       - --config=/config/two_factor.yml
+      - --config=/config/oidc-clients.yml
     environment:
       - AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE=/secrets/JWT_SECRET
       - AUTHELIA_SESSION_SECRET_FILE=/secrets/SESSION_SECRET
       - AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE=/secrets/STORAGE_PASSWORD
       - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/secrets/STORAGE_ENCRYPTION_KEY
+      - X_AUTHELIA_CONFIG_FILTERS=template
     volumes:
       - ./authelia/config:/config
       - ./authelia/secrets:/secrets
