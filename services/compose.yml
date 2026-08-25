@@ -91,7 +91,7 @@ services:
     image: actualbudget/actual-server@sha256:055bd958cdf3224aa0816dedb9ded75704dfa1f26f9ce663d95b0fc8d249931f
     container_name: actual-budget
     environment:
-      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - NODE_EXTRA_CA_CERTS=/data/homelab.crt
       - ACTUAL_OPENID_AUTH_METHOD=openid
       - ACTUAL_OPENID_ENABLED=true
       - ACTUAL_OPENID_DISCOVERY_URL=https://auth.${DOMAIN_PORT}/.well-known/openid-configuration
@@ -100,6 +100,7 @@ services:
       - NODE_TLS_REJECT_UNAUTHORIZED=0
     volumes:
       - ./actual_data:/data
+      - ${CERT_CRT}:/data/homelab.crt:ro
       - /etc/localtime:/etc/localtime:ro
     secrets:
       - actual_secret
