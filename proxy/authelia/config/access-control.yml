@@ -2,79 +2,37 @@
 access_control:
   default_policy: deny
   networks:
+    - name: docker_network
+      networks:
+        - 172.16.0.0/12
     - name: local_network
       networks:
         - 192.168.8.0/24
-        - 172.16.0.0/12
+    - name: private_network
+      networks:
+        - 192.168.8.134/32
 
   rules:
     - domain: 'homelab.cz'
-      resources:
-        # Homepage
-        - '^/$'
       policy: bypass
 
-    - domain: 'wakapi.homelab.cz'
-      resources:
-        - '^/.*$'
+    - domain:
+      - 'wakapi.homelab.cz'
+      - 'vikunja.homelab.cz'
+      - 'vaultwarden.homelab.cz'
+      - 'actualbudget.homelab.cz'
       networks:
         - local_network
+        - docker_network
       policy: bypass
 
-    - domain: 'wakapi.homelab.cz'
-      resources:
-        - '^/.*$'
-      policy: two_factor
-
-    - domain: 'vikunja.homelab.cz'
-      resources:
-        - '^/.*$'
+    - domain:
+      - 'beszel.homelab.cz'
+      - 'myadmin.homelab.cz'
+      - 'drydock.homelab.cz'
+      subject: "group:admin"
       networks:
-        - local_network
-      policy: bypass
-
-    - domain: 'vikunja.homelab.cz'
-      resources:
-        - '^/.*$'
-      policy: two_factor
-
-    - domain: 'vaultwarden.homelab.cz'
-      resources:
-        - '^/.*$'
-      networks:
-        - local_network
-      policy: bypass
-
-    - domain: 'actualbudget.homelab.cz'
-      resources:
-        - '^/.*$'
-      networks:
-        - local_network
-      policy: bypass
-
-    - domain: 'actualbudget.homelab.cz'
-      resources:
-        - '^/.*$'
-      policy: two_factor
-
-    - domain: 'myadmin.homelab.cz'
-      resources:
-        - '^/.*$'
-      networks:
-        - local_network
-      policy: bypass
-
-    - domain: 'drydock.homelab.cz'
-      resources:
-        - '^/.*$'
-      networks:
-        - local_network
-      policy: bypass
-
-    - domain: 'beszel.homelab.cz'
-      resources:
-        - '^/.*$'
-      networks:
-        - local_network
-      policy: bypass
+        - private_network
+        - docker_network
+      policy: one_factor
 
