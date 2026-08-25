@@ -21,12 +21,22 @@ access_control:
         - local_network
       policy: bypass
 
+    - domain: 'wakapi.homelab.cz'
+      resources:
+        - '^/.*$'
+      policy: two_factor
+
     - domain: 'vikunja.homelab.cz'
       resources:
         - '^/.*$'
       networks:
         - local_network
       policy: bypass
+
+    - domain: 'vikunja.homelab.cz'
+      resources:
+        - '^/.*$'
+      policy: two_factor
 
     - domain: 'vaultwarden.homelab.cz'
       resources:
@@ -41,6 +51,11 @@ access_control:
       networks:
         - local_network
       policy: bypass
+
+    - domain: 'actualbudget.homelab.cz'
+      resources:
+        - '^/.*$'
+      policy: two_factor
 
     - domain: 'myadmin.homelab.cz'
       resources:
