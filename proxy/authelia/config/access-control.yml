@@ -33,6 +33,5 @@ access_control:
       subject: "group:admin"
       networks:
         - private_network
-        - docker_network
       policy: one_factor
 
