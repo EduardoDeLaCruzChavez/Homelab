@@ -16,6 +16,7 @@ services:
       - ./nginx/snippets:/etc/nginx/snippets:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/certs:/etc/nginx/certs:ro
+      - nginx_cache:/var/cache/nginx:rw
       - /etc/localtime:/etc/localtime:ro
     restart: always
     networks:
@@ -54,6 +55,9 @@ services:
     networks:
       - homelab-internal
       - homelab-private
+
+volumes:
+  nginx_cache:
 
 networks:
   homelab-public:
