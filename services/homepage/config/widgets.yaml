@@ -13,3 +13,8 @@
     uptime: true
     expanded: true
     label: Homelab
+
+- logo:
+    icon: authelia.png
+    href: https://auth.homelab.cz:8989/
+    target: _self
