@@ -27,11 +27,18 @@ access_control:
       policy: bypass
 
     - domain:
+      - 'wakapi.homelab.cz'
+      - 'vikunja.homelab.cz'
+      - 'vaultwarden.homelab.cz'
+      - 'actualbudget.homelab.cz'
+      policy: two_factor
+
+    - domain:
       - 'beszel.homelab.cz'
       - 'myadmin.homelab.cz'
       - 'drydock.homelab.cz'
       subject: "group:admin"
       networks:
         - private_network
-      policy: one_factor
+      policy: two_factor
 

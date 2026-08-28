@@ -41,7 +41,7 @@ identity_providers:
         client_name: Beszel
         client_secret: '{{ secret "/secrets/beszel_secret" }}'
         public: false
-        authorization_policy: two_factor
+        authorization_policy: one_factor
         require_pkce: true
         pkce_challenge_method: S256
         redirect_uris:
