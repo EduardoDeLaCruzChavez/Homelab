@@ -2,8 +2,8 @@ name: home-proxy
 
 services:
 
-  main-service:
-    image: nginx@sha256:db35bfc6b2951e7f8a72db5db120288c127ffaeeb4a6d4b95a26fead017d5913
+  homelab:
+    image: nginx@sha256:09cc2702709e6388d979d8030e3ab4eb1ceb699b2dced26d7543e872a822e823
     container_name: homelab
     ports:
       - "${PORT}:${PORT}"
