@@ -5,7 +5,8 @@ with open('/run/secrets/pgadmin_secret', 'r') as f:
 
 AUTHELIA_DOMAIN = 'auth.homelab.cz:8989'
 
-AUTHENTICATION_SOURCES = ['oauth2', 'internal']
+#AUTHENTICATION_SOURCES = ['oauth2', 'internal']
+AUTHENTICATION_SOURCES = ['oauth2'] # <DISABLE_FIRST_SETUP>
 OAUTH2_AUTO_CREATE_USER = True
 OAUTH2_CONFIG = [{
     'OAUTH2_NAME': 'Authelia',
