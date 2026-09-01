@@ -32,13 +32,23 @@ services:
     restart: unless-stopped
     volumes:
       - pdadmin-data:/var/lib/pgadmin
+      - ${CERT_CRT}:/certs/proxy-ca.crt:ro
+      - ./config/config_local.py:/pgadmin4/config_local.py:ro
+      - /etc/localtime:/etc/localtime:ro
     environment:
+      - REQUESTS_CA_BUNDLE=/certs/proxy-ca.crt
       - PGADMIN_DEFAULT_EMAIL=admin@valorant.com
       - PGADMIN_DEFAULT_PASSWORD_FILE=/run/secrets/email_password
       - PGADMIN_LISTEN_PORT=8080
-      - PROXY_X_FOR_COUNT=1
+      - PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED=False
+      - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=False
+      - PGADMIN_CONFIG_PROXY_X_FOR_COUNT=1
+      - PGADMIN_CONFIG_PROXY_X_HOST_COUNT=1
+      - PGADMIN_CONFIG_PROXY_X_PROTO_COUNT=1
+      - PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT=1
     secrets:
       - email_password
+      - pgadmin_secret
     depends_on:
       - postgres
     networks:
@@ -62,6 +72,8 @@ secrets:
     file: ./.pswd/pswdb
   email_password:
     file: ./.pswd/pswdmail
+  pgadmin_secret:
+    file: ./.pswd/pgadmin_secret
 
 networks:
   homelab-internal:
