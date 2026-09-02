@@ -22,7 +22,6 @@ services:
     image: ghcr.io/muety/wakapi@sha256:00662767731a6797d4be02cbc6c3f32b7ff8d0c683ee10ec5612856d4efbb3bf
     container_name: wakapi
     environment:
-      - /etc/localtime:/etc/localtime:ro
       - WAKAPI_BASE_PATH=/
       - WAKAPI_DB_TYPE=postgres
       - WAKAPI_DB_HOST=postgres
@@ -46,7 +45,9 @@ services:
     image: vikunja/vikunja@sha256:417ada6f94e81f0267aa2f007d0a811fc82d38dd2aa58351e3ea520ca01c2ea5
     container_name: vikunja
     environment:
-      - VIKUNJA_SERVICE_PUBLICURL=https://vikunja.${DOMAIN_PORT}/
+      - VIKUNJA_AUTH_LOCAL_ENABLED=false #<DISABLE_FIRST_SETUP>
+      - VIKUNJA_SERVICE_ENABLEREGISTRATION=false # <DISABLE_FIRST_SETUP>
+      - VIKUNJA_SERVICE_PUBLICURL=https://vikunja.${DOMAIN_PORT}
       - VIKUNJA_CORS_ENABLE=true
       - VIKUNJA_CORS_ORIGINS=https://vikunja.${DOMAIN_PORT}
       - VIKUNJA_DATABASE_HOST=postgres
@@ -55,12 +56,16 @@ services:
       - VIKUNJA_DATABASE_USER=vikunja
       - VIKUNJA_DATABASE_PASSWORD_FILE=/run/secrets/vikunja_password
       - VIKUNJA_SERVICE_SECRET_FILE=/run/secrets/vikunja_secret
+      - VIKUNJA_AUTH_OPENID_PROVIDERS_AUTHELIA_CLIENTSECRET_FILE=/run/secrets/vikunja_client_secret
     volumes:
       - ./vikunja:/app/vikunja/files
+      - ./vikunja/config.yml:/etc/vikunja/config.yml:ro
+      - ${CERT_CRT}:/etc/ssl/certs/ca-certificates.crt
       - /etc/localtime:/etc/localtime:ro
     secrets:
       - vikunja_password
       - vikunja_secret
+      - vikunja_client_secret
     restart: unless-stopped
     networks:
       - homelab-internal
@@ -122,6 +127,8 @@ secrets:
     file: .pswd/pswdvikunja
   vikunja_secret:
     file: .pswd/secretvin
+  vikunja_client_secret:
+    file: .pswd/vinSecret
   vaultwarden_db_password:
     file: .pswd/pswdvault
   actual_secret:

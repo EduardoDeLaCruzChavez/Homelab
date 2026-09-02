@@ -8,6 +8,7 @@
 **/actual_data
 **/trivy-cache
 **/drydock-data
+**/vikunja/config.yml
 **/certs
 **/.pswd/*
 **/logs

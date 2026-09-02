@@ -1,0 +1,10 @@
+auth:
+  openid:
+    enabled: true
+
+    providers:
+      authelia:
+        name: Authelia
+        authurl: https://auth.example.com
+        clientid: vikunja
+        scope: "openid profile email"
