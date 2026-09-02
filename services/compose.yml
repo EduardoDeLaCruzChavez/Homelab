@@ -97,6 +97,7 @@ services:
     container_name: actual-budget
     environment:
       - NODE_EXTRA_CA_CERTS=/data/homelab.crt
+      - ACTUAL_USER_CREATION_MODE=login
       - ACTUAL_OPENID_AUTH_METHOD=openid
       - ACTUAL_OPENID_ENABLED=true
       - ACTUAL_OPENID_DISCOVERY_URL=https://auth.${DOMAIN_PORT}/.well-known/openid-configuration
