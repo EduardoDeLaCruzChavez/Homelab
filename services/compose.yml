@@ -100,6 +100,7 @@ services:
       - ACTUAL_USER_CREATION_MODE=login
       - ACTUAL_OPENID_AUTH_METHOD=openid
       - ACTUAL_OPENID_ENABLED=true
+      - ACTUAL_OPENID_ENFORCE=true # <DISABLE_FIRST_SETUP>
       - ACTUAL_OPENID_DISCOVERY_URL=https://auth.${DOMAIN_PORT}/.well-known/openid-configuration
       - ACTUAL_OPENID_SERVER_HOSTNAME=https://actualbudget.${DOMAIN_PORT}
       - ACTUAL_OPENID_CLIENT_ID=actual-budget
