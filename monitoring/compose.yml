@@ -91,8 +91,10 @@ services:
       - DD_WATCHER_LOCAL_HOST=socket-proxy
       - DD_WATCHER_LOCAL_PORT=2375
       - DD_PUBLIC_URL=https://drydock.${DOMAIN_PORT}
+      - DD_COOKIE_SECURE=false
       - DD_DISABLE_BOOT_CHECK=true
-      - DD_WATCHER_LOCAL_CRON=0 */12 * * *
+      - DD_SECURITY_SKIP_BOOT_SCAN=true
+      - DD_WATCHER_LOCAL_CRON=0 0 * * *
       - DD_SECURITY_SCAN_CRON=0 3 * * *
       - DD_SECURITY_SCANNER=trivy
       - DD_SECURITY_TRIVY_SERVER=http://trivy:4954
