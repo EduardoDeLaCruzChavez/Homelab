@@ -124,17 +124,17 @@ services:
 
 secrets:
   wakapi_password:
-    file: .pswd/pswdwaka
+    file: .pswd/wakapi_pswd
   vikunja_password:
-    file: .pswd/pswdvikunja
+    file: .pswd/vikunja_pswd
   vikunja_secret:
-    file: .pswd/secretvin
+    file: .pswd/vikunja_secret
   vikunja_client_secret:
-    file: .pswd/vinSecret
+    file: .pswd/vikunja_client_secret
   vaultwarden_db_password:
-    file: .pswd/pswdvault
+    file: .pswd/vault_pswd
   actual_secret:
-    file: .pswd/actualSecret
+    file: .pswd/actual_client_secret
 
 networks:
   homelab-internal:
