@@ -5,18 +5,16 @@ services:
   postgres:
     image: postgres@sha256:4ef4dbc939d61acea57712655ddb4b4ab27419c913f94cca0cd57cb3ea3c2280
     container_name: Postgres
-    restart: always
-    ports:
-     - "5432:5432"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - glob-database:/var/lib/postgresql
     environment:
       - POSTGRES_USER_FILE=/run/secrets/postgres_user
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - glob-database:/var/lib/postgresql
     secrets:
       - postgres_user
       - postgres_password
+    restart: always
     networks:
       - homelab-private
     healthcheck:
@@ -29,12 +27,6 @@ services:
   myadmin:
     image: dpage/pgadmin4@sha256:2f4ce946ddf8360680d7eff4eaba1d91859eb6b4003e6623bad5c63a322c2f4d
     container_name: myadmin
-    restart: unless-stopped
-    volumes:
-      - pdadmin-data:/var/lib/pgadmin
-      - ${CERT_CRT}:/certs/proxy-ca.crt:ro
-      - ./config/config_local.py:/pgadmin4/config_local.py:ro
-      - /etc/localtime:/etc/localtime:ro
     environment:
       - REQUESTS_CA_BUNDLE=/certs/proxy-ca.crt
       - PGADMIN_DEFAULT_EMAIL=admin@valorant.com
@@ -46,11 +38,17 @@ services:
       - PGADMIN_CONFIG_PROXY_X_HOST_COUNT=1
       - PGADMIN_CONFIG_PROXY_X_PROTO_COUNT=1
       - PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT=1
+    volumes:
+      - pdadmin-data:/var/lib/pgadmin
+      - ${CERT_CRT}:/certs/proxy-ca.crt:ro
+      - ./config/config_local.py:/pgadmin4/config_local.py:ro
+      - /etc/localtime:/etc/localtime:ro
     secrets:
       - email_password
       - pgadmin_secret
     depends_on:
       - postgres
+    restart: unless-stopped
     networks:
       - homelab-internal
       - homelab-private
@@ -67,13 +65,13 @@ volumes:
 
 secrets:
   postgres_user:
-    file: ./.pswd/user
+    file: .pswd/user
   postgres_password:
-    file: ./.pswd/pswdb
+    file: .pswd/db_pswd
   email_password:
-    file: ./.pswd/pswdmail
+    file: .pswd/pgadmin_email_pswd
   pgadmin_secret:
-    file: ./.pswd/pgadmin_secret
+    file: .pswd/pgadmin_secret
 
 networks:
   homelab-internal:
