@@ -5,16 +5,16 @@ services:
   beszel:
     image: henrygd/beszel@sha256:4c51486968efa0b0a702c1b0967966a2e06fb250b7418f3072d2488faea27c51
     container_name: monitoring
-    restart: unless-stopped
     user: "${PUID}:${PGID}"
     environment:
       - DISABLE_PASSWORD_AUTH=true # <DISABLE_FIRST_SETUP>
       - USER_CREATION=true
       - APP_URL=https://beszel.${DOMAIN_PORT}/
     volumes:
-      - ${CERT_CRT}:/etc/ssl/certs/custom-ca.crt:ro
       - ./beszel_data:/beszel_data
+      - ${CERT_CRT}:/etc/ssl/certs/custom-ca.crt:ro
       - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
     networks:
       - homelab-monitoring
     healthcheck:
@@ -85,8 +85,6 @@ services:
     image: codeswhat/drydock@sha256:43d4807aba1e39944275ed027d08f6ce670a07efa8916ba06a1d257a2bcbf786
     container_name: drydock
     user: "${PUID}:${PGID}"
-    depends_on:
-      - socket-proxy
     environment:
       - DD_WATCHER_LOCAL_HOST=socket-proxy
       - DD_WATCHER_LOCAL_PORT=2375
@@ -108,6 +106,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     secrets:
       - admin_hash
+    depends_on:
+      - socket-proxy
     restart: unless-stopped
     networks:
       - homelab-socket
@@ -119,11 +119,11 @@ volumes:
 
 secrets:
   beszel_key:
-    file: .pswd/bezkey
+    file: .pswd/beszel_key
   beszel_token:
-    file: .pswd/beztok
+    file: .pswd/beszel_token
   admin_hash:
-    file: .pswd/adminH
+    file: .pswd/drydock_pswd
 
 networks:
   homelab-monitoring:
