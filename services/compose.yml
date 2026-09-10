@@ -122,6 +122,36 @@ services:
       retries: 3
       start_period: 20s
 
+  linkwarden:
+    image: ghcr.io/linkwarden/linkwarden@sha256:f4dd1790cef8de5b923dd5c0239e8861c3600500e3d234dab655dad0303d3a7f
+    container_name: linkwarden
+    env_file:
+      - .env.linkwarden
+      # DATABASE_URL=
+      # NEXTAUTH_SECRET=
+      # AUTHELIA_CLIENT_SECRET=
+    environment:
+      - BASE_URL=https://links.${DOMAIN_PORT}
+      - NEXTAUTH_URL=https://links.${DOMAIN_PORT}/api/v1/auth
+      - TRUST_PROXY=true
+      - AUTOREGISTER=true
+      - AUTHELIA_CLIENT_ID=linkwarden
+      - NEXT_PUBLIC_AUTHELIA_ENABLED=true
+      - NEXT_PUBLIC_CREDENTIALS_ENABLED=false
+      - AUTHELIA_WELLKNOWN_URL=https://auth.${DOMAIN_PORT}/.well-known/openid-configuration
+      - NODE_EXTRA_CA_CERTS=/etc/ssl/certs/custom-ca.crt
+    volumes:
+      - ./linkwarden_data:/data/data
+      - ${CERT_CRT}:/etc/ssl/certs/custom-ca.crt:ro
+      - /etc/localtime:/etc/localtime:ro
+    secrets:
+      - linkwarden_db
+      - nextauth_secret
+      - linkwarden_client_secret
+    networks:
+      - homelab-internal
+      - homelab-private
+
 secrets:
   wakapi_password:
     file: .pswd/wakapi_pswd
@@ -135,6 +165,12 @@ secrets:
     file: .pswd/vault_pswd
   actual_secret:
     file: .pswd/actual_client_secret
+  linkwarden_db:
+    file: .pswd/linkwarden_db
+  nextauth_secret:
+    file: .pswd/nextauth_secret
+  linkwarden_client_secret:
+    file: .pswd/linkwarden_client_secret
 
 networks:
   homelab-internal:

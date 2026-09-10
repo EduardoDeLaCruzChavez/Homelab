@@ -15,6 +15,10 @@
         icon: actual-budget.png
         href: https://actualbudget.homelab.cz:8989/
         target: _blank
+    - Linkwarden:
+        icon: linkwarden.png
+        href: https://links.homelab.cz:8989/
+        target: _blank
 
 - Monitoring:
     - Beszel:

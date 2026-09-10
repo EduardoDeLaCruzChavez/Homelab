@@ -21,6 +21,7 @@ access_control:
       - 'vikunja.homelab.cz'
       - 'vaultwarden.homelab.cz'
       - 'actualbudget.homelab.cz'
+      - 'links.homelab.cz'
       networks:
         - local_network
         - docker_network
@@ -31,6 +32,7 @@ access_control:
       - 'vikunja.homelab.cz'
       - 'vaultwarden.homelab.cz'
       - 'actualbudget.homelab.cz'
+      - 'links.homelab.cz'
       policy: two_factor
 
     - domain:

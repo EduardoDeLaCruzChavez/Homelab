@@ -1,4 +1,5 @@
 .env
+**/.env.linkwarden
 **/vikunja-repo
 **/vault_data
 **/beszel_data
