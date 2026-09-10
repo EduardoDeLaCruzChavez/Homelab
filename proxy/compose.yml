@@ -3,7 +3,7 @@ name: home-proxy
 services:
 
   homelab:
-    image: nginx@sha256:09cc2702709e6388d979d8030e3ab4eb1ceb699b2dced26d7543e872a822e823
+    image: nginx@sha256:72ba65eb42c10344912a84ff42408db7d34f2feb642204570ab8fc5ffd29f1d3
     container_name: homelab
     ports:
       - "${PORT}:${PORT}"
@@ -31,7 +31,7 @@ services:
       - authelia
 
   authelia:
-    image: authelia/authelia:latest
+    image: authelia/authelia@sha256:a039d87fb842f0af4f83c03434f5fb6ec45d4b46e86b8b3ac571cc104bbe6e6d
     container_name: authelia
     user: "${PUID}:${PGID}"
     command:
