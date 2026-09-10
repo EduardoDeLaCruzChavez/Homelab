@@ -144,10 +144,6 @@ services:
       - ./linkwarden_data:/data/data
       - ${CERT_CRT}:/etc/ssl/certs/custom-ca.crt:ro
       - /etc/localtime:/etc/localtime:ro
-    secrets:
-      - linkwarden_db
-      - nextauth_secret
-      - linkwarden_client_secret
     networks:
       - homelab-internal
       - homelab-private
@@ -165,12 +161,6 @@ secrets:
     file: .pswd/vault_pswd
   actual_secret:
     file: .pswd/actual_client_secret
-  linkwarden_db:
-    file: .pswd/linkwarden_db
-  nextauth_secret:
-    file: .pswd/nextauth_secret
-  linkwarden_client_secret:
-    file: .pswd/linkwarden_client_secret
 
 networks:
   homelab-internal:
