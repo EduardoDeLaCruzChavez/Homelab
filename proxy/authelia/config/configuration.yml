@@ -11,7 +11,7 @@ notifier:
     filename: /config/notification.txt
 
 session:
-  name: authelia_session
+  name: homelab_session
   expiration: '1h'
   inactivity: '15m'
   cookies:
