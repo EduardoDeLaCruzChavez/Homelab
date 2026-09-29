@@ -3,7 +3,7 @@ name: home-service
 services:
 
   homepage:
-    image: ghcr.io/gethomepage/homepage@sha256:f820276654539cdc2cf0169f28188d135919a7984fad76d83d8d5ff1383f3705
+    image: ghcr.io/gethomepage/homepage@sha256:643bd0be730d40f69d58028a55d1a896739333e8815786df42bc97f109ecbe61
     container_name: homepage
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=${ALLOWED_HOST}
@@ -19,7 +19,7 @@ services:
       - homelab-internal
 
   wakapi:
-    image: ghcr.io/muety/wakapi@sha256:00662767731a6797d4be02cbc6c3f32b7ff8d0c683ee10ec5612856d4efbb3bf
+    image: ghcr.io/muety/wakapi@sha256:9ee43d15009730928ed4c3506bdfb410522d9e6543d364d8c063e1e02348ba78
     container_name: wakapi
     environment:
       - WAKAPI_BASE_PATH=/
@@ -93,7 +93,7 @@ services:
       - homelab-private
 
   actual-budget:
-    image: actualbudget/actual-server@sha256:b3f5af370859164177c865bfd8035c53ef6382d643fdf58b6a20e39fa93cf38a
+    image: actualbudget/actual-server@sha256:48dfa20287e800bf9c3ed94e7cff2089f3caad6d95f692a0fd7669368002bf05
     container_name: actual-budget
     environment:
       - NODE_EXTRA_CA_CERTS=/data/homelab.crt
@@ -123,7 +123,7 @@ services:
       start_period: 20s
 
   linkwarden:
-    image: ghcr.io/linkwarden/linkwarden@sha256:f4dd1790cef8de5b923dd5c0239e8861c3600500e3d234dab655dad0303d3a7f
+    image: ghcr.io/linkwarden/linkwarden@sha256:0664c28a039bda8ffa6663389e8536b2fc717219e329f85b83faca7efed3b144
     container_name: linkwarden
     env_file:
       - .env.linkwarden
