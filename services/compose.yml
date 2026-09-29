@@ -144,6 +144,7 @@ services:
       - ./linkwarden_data:/data/data
       - ${CERT_CRT}:/etc/ssl/certs/custom-ca.crt:ro
       - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
     networks:
       - homelab-internal
       - homelab-private
