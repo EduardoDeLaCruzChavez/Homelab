@@ -3,7 +3,7 @@ name: monitoring
 services:
 
   beszel:
-    image: henrygd/beszel@sha256:fefb27166f5e1611ebf67f8697ea928a23f44efdb00af922e2ac3b5faa2efd5c
+    image: henrygd/beszel@sha256:897e807a065adf8e89e30ae0cd79d1f5e38fe84ccaffbc418bde9d3cdca4eacc
     container_name: monitoring
     user: "${PUID}:${PGID}"
     environment:
@@ -23,7 +23,7 @@ services:
       interval: 120s
 
   beszel-agent:
-    image: henrygd/beszel-agent@sha256:00c88600e7d120128f623b2deb5257603d464e841fd68f88cc791dcc075f9e46
+    image: henrygd/beszel-agent@sha256:765e3d4a087c4bcbf6b78ed0f1dfdcd669c4bf6ad5789a832d2944603ae7fd08
     container_name: beszel-agent
     environment:
       - LISTEN=45876
@@ -82,7 +82,7 @@ services:
       - homelab-public
 
   drydock:
-    image: codeswhat/drydock@sha256:43d4807aba1e39944275ed027d08f6ce670a07efa8916ba06a1d257a2bcbf786
+    image: codeswhat/drydock@sha256:8ad0c550a919f6e2c2c058dfc170ae0ffcb671fb9521b8f9a4fcf1bdf1a9047b
     container_name: drydock
     user: "${PUID}:${PGID}"
     environment:
